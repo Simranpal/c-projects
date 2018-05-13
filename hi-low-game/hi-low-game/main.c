@@ -58,22 +58,22 @@ int main(){
     
     // iterate in a loop, as long as not found and chance_count <= MAX_CHANCES
     // Instruction: Offcourse, it is your task to write the condition for the while loop
-    while(/*as long as match is false and chances are <= MAX_CHANCES*/){ // 20 Marks
+    while(user_guess != computer_guess && chance_count <= MAX_CHANCES){
         // prompt the user to enter their guess.
         printf("Enter your number: ");
         // get that input in user_guess
         scanf("%d", &user_guess);
         // if the user_guess is greater than the computer_guess, then print "Your guess is high",
         // also print, number of steps remaining.
-        if (/* write the condition */){                     // 10 Marks
+        if (user_guess > computer_guess){
             printf("Your guess is high\n");
-            // write a printf to print the remaining chances  // 5 Marks
+            printf("Number of remaining chances: %d", MAX_CHANCES-chance_count);
         }
         // other wise if the user_guess is less than the computer_guess then, print "Your guess is low"
         // also print number of steps remaining.
-        else if(/* write the condition */){                 // 10 Marks
+        else if(user_guess < computer_guess){
             printf("Your guess is low \n");
-            // write a printf to print the remaining chances  // 5 Marks
+            printf("Number of remaining chances: %d", MAX_CHANCES-chance_count);
         }
         // if they match, print "Bingo!! You have won the game.", also print number
         // of steps that the user took to find the number. You need to do something
@@ -82,6 +82,7 @@ int main(){
             // You will be here only if the user input matches with the number
             // guessed by your program.
             // complete this section...                     // 20 marks
+            break;
         }
         printf("\n\n");
         chance_count++;  // increment the chance_count for the next iteration.
@@ -91,9 +92,13 @@ int main(){
     // the number correctly or they have failed to guess that in all 7 steps.
     // For the second case you need to print "Game Over" message.
     // if not match, then print "Game over!!! Try to be Mathemetical."
-    if (/* complete the condition */){                // 10 marks
-        // print the game over message.                 // 5 marks
+    if (user_guess == computer_guess){                // 10 marks
+        printf("Bingo!! You got it correct %d is the number\n", computer_guess);
+        
     }
+    else
+        printf("Game over!!! Try to be Mathemetical.\n");
+    
     return 0;
 }
 
