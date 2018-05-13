@@ -22,9 +22,6 @@ int main(int argc, const char * argv[]) {
         }
         printf("\n");
     }
-    for(int i = 1; i <= stars+1; i ++) {
-        printf(" ");
-    }
-    printf("*\n");
+   
     return 0;
 }
