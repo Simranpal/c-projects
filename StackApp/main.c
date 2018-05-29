@@ -21,7 +21,7 @@ void push(Stack * s, int element) {
 
     s->top++;
     s->items[s->top] = element;
-    printf("Item inserted : %d, TOP = %d\n", s->items[s->top]);
+    printf("\nItem inserted : %d, TOP = %d\n", s->items[s->top]);
 }
 int pop (Stack *s) {
     if(s->top == -1) {
@@ -45,13 +45,38 @@ int main()
     Stack s1, s2;
     init(&s1);
     init(&s2);
-    //push an element to s1 stack
-    push(&s1, 555);
 
-    //pop an element and print it
-    int p = pop(&s1);
-    printf("Popped element : %d\n", p);
-    printf("Popped another element : %d", pop(&s1));
+    printf("1. Push\n");
+    printf("2. Pop\n");
+    printf("3. Exit program\n");
+
+    int choice, number;
+
+    while(1) {
+        printf("\n Enter a choice : ");
+        scanf("%d", &choice);
+
+        switch(choice) {
+
+        case 1:
+            printf("\n Enter a number: ");
+            scanf("%d", &number);
+            push(&s1,number);
+            break;
+
+        case 2:
+            number = pop(&s1);
+             if(number != -1) {
+                printf("\n Popped element : %d", number);
+             }
+             break;
+        case 3:
+            exit(0);
+
+        default :
+            printf("\nEnter a valid choice! ");
+        }
+    }
 
     return 0;
 }
