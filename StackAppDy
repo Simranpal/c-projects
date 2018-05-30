@@ -1,0 +1,106 @@
+//
+//  main.c
+//  StackApp with dynamic mem allocation
+//
+//  Created by Simranpal Singh on 2018-05-29.
+//  Copyright © 2018 Simranpal Singh. All rights reserved.
+//
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    int * items;
+    int top;
+    int size;
+}Stack;
+
+//declarations
+void push(Stack *, int);
+int  pop(Stack *);
+void init(Stack *, int);
+void deallocate(Stack *);
+
+void push(Stack * s, int element) {
+    if(s->top == s->size - 1) {
+        int newSize = 2 * s->size;
+        s->items = (int *) realloc(s->items, newSize * sizeof(int));
+        s->size = newSize;
+        if(s->items ==NULL) {
+            printf("Stack overflow! Cannot insert more item\n");
+            exit(1);
+        }
+    }
+    
+    s->top++;
+    s->items[s->top] = element;
+    printf("\nItem inserted : %d, TOP = %d\n", s->items[s->top], s->top);
+}
+int pop (Stack *s) {
+    if(s->top == -1) {
+        printf("Stack underflow! Cannot remove any item\n");
+        return -1;
+    }
+    
+    int item;
+    item = s->items[s->top];
+    s->top--;
+    return item;
+}
+
+//initialize stack
+void init(Stack *s,int size ) {
+    s->top = -1;
+    
+    s->size = size;
+    s->items = (int *)malloc(size * sizeof(int));
+    if(s->items ==NULL) {
+        printf("Unable to allocate memory\n");
+        exit(1);
+    }
+}
+
+void deallocate(Stack *s){
+    if(s->items != NULL){
+        free(s->items);
+    }
+}
+int main()
+{
+    Stack s1;
+    init(&s1, 5);
+    
+    printf("1. Push\n");
+    printf("2. Pop\n");
+    printf("3. Exit program\n");
+    
+    int choice, number;
+    
+    while(1) {
+        printf("\n Enter a choice : ");
+        scanf("%d", &choice);
+        
+        switch(choice) {
+                
+            case 1:
+                printf("\n Enter a number: ");
+                scanf("%d", &number);
+                push(&s1,number);
+                break;
+                
+            case 2:
+                number = pop(&s1);
+                if(number != -1) {
+                    printf("\n Popped element : %d", number);
+                }
+                break;
+            case 3:
+                deallocate(&s1);
+                exit(0);
+                
+            default :
+                printf("\nEnter a valid choice! ");
+        }
+    }
+    return 0;
+}
