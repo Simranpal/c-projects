@@ -1,0 +1,61 @@
+//
+//  main.c
+//  QApp1
+//
+//  Created by Simranpal Singh on 2018-05-30.
+//  Copyright © 2018 Simranpal Singh. All rights reserved.
+//
+
+#include <stdio.h>
+#include <stdlib.h>
+#define SIZE 5
+
+typedef struct Queue {
+    int items[SIZE];
+    int front;
+    int back;
+}Queue;
+
+//declarations
+void init(Queue *);
+void enqueue(Queue *, int);
+int dequeue(Queue *);
+
+void init(Queue *q) {
+    q->back = 0;
+    q->front = 0;
+}
+
+void enqueue(Queue *q, int item) {
+    if(q->back == SIZE) {
+        printf("\nQueue overflow, Terminating the program\n");
+        exit(1);
+    }
+    q->items[q->back++] = item;
+    printf("\nEnqueue(%d)", item);
+}
+
+int dequeue(Queue *q) {
+    if(q->front == q->back) {
+        printf("\nQueue underflow, Terminating the program\n");
+        return(-999);
+    }
+    int item = q->items[q->front];
+    q->front++;
+    return item;
+}
+int main(int argc, const char * argv[]) {
+    
+    Queue q1;
+    init(&q1);
+    enqueue(&q1, 11);
+    enqueue(&q1, 22);
+    enqueue(&q1, 33);
+    int i = dequeue(&q1);
+    printf("\nDequeue  : %d\n", i);
+    enqueue(&q1, 44);
+    enqueue(&q1, 55);
+    enqueue(&q1, 66);
+    
+    return 0;
+}
