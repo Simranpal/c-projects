@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+}Node;
+
+typedef struct LinkedList {
+    struct Node* head;
+    struct Node* tail;
+    int nodeCount;
+}LinkedList;
+
+//declarations
+void initList(LinkedList *);
+void insertNodeAtHead(LinkedList *, int );
+
+void initList(LinkedList* listPtr) {
+    listPtr->head = '\0';
+    listPtr->tail = '\0';
+    listPtr->nodeCount = 0;
+}
+
+void insertNodeAtHead(LinkedList* listPtr, int e) {
+
+    Node *newNodePtr = (Node *)malloc(sizeof(Node));
+    if(newNodePtr == '\0') {
+        printf("malloc failed");
+        return;
+    }
+    newNodePtr->data = e;
+    newNodePtr->next = NULL;
+    //case when no existing nodes
+    if(listPtr->nodeCount == 0) {
+        listPtr->head = newNodePtr;
+        listPtr->tail = newNodePtr;
+
+    }
+    //case when there are existing nodes present
+    else{
+        newNodePtr->next = listPtr->head;
+        listPtr->head = newNodePtr;
+    }
+    listPtr->nodeCount++;
+}
+
+void displayList(LinkedList *listPtr) {
+
+    if(listPtr->nodeCount == 0) {
+        printf("List is empty!\n");
+        return;
+    }
+    Node *itr = listPtr->head;
+    int i = 1;
+    while(itr!= NULL){
+        printf("\nNode (%d)th data: %d", i, itr->data);
+        i++;
+        itr = itr->next;
+    }
+}
+void menu(){
+    printf("\n====LINKED LIST OPERATION====\n");
+    printf("1. Display List\n");
+    printf("2. Insert a Node at HEAD\n");
+    printf("3. Insert a Node at TAIL\n");
+    printf("4. Delete node at HEAD\n");
+    printf("5. Delete node at TAIL\n");
+}
+int main()
+{
+    struct LinkedList myList;
+    initList(&myList);
+
+    int quit = 0;
+    int choice = 0;
+    int data;
+
+    while(!quit) {
+        menu();
+        printf("\nChoose an Option : ");
+        scanf("%d", &choice);
+
+        switch(choice) {
+            case 1 :
+                    displayList(&myList);
+                    break;
+            case 2 :
+                    printf("\nEnter Node data: ");
+                    scanf("%d", &data);
+                    insertNodeAtHead(&myList,data);
+                    break;
+            default :
+                    printf("Please enter a valid option!");
+                    break;
+        }
+    }
+    printf("\n");
+    return 0;
+}
