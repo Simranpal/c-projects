@@ -15,6 +15,7 @@ typedef struct LinkedList {
 //declarations
 void initList(LinkedList *);
 void insertNodeAtHead(LinkedList *, int );
+void insertNodeAtTail(LinkedList *, int );
 
 void initList(LinkedList* listPtr) {
     listPtr->head = '\0';
@@ -45,6 +46,29 @@ void insertNodeAtHead(LinkedList* listPtr, int e) {
     listPtr->nodeCount++;
 }
 
+void insertNodeAtTail(LinkedList* listPtr, int e) {
+
+    Node *newNodePtr = (Node *)malloc(sizeof(Node));
+    if(newNodePtr == '\0') {
+        printf("malloc failed");
+        return;
+    }
+    newNodePtr->data = e;
+    newNodePtr->next = NULL;
+    //case when no existing nodes
+    if(listPtr->nodeCount == 0) {
+        listPtr->head = newNodePtr;
+        listPtr->tail = newNodePtr;
+
+    }
+    //case when there are existing nodes present
+    else{
+	listPtr->tail->next = newNodePtr;
+	listPtr->tail = newNodePtr;
+    }
+    listPtr->nodeCount++;
+}
+
 void displayList(LinkedList *listPtr) {
 
     if(listPtr->nodeCount == 0) {
@@ -54,7 +78,7 @@ void displayList(LinkedList *listPtr) {
     Node *itr = listPtr->head;
     int i = 1;
     while(itr!= NULL){
-        printf("\nNode (%d)th data: %d", i, itr->data);
+        printf("\nNode (%d)th data: %d\n", i, itr->data);
         i++;
         itr = itr->next;
     }
@@ -89,6 +113,12 @@ int main()
                     printf("\nEnter Node data: ");
                     scanf("%d", &data);
                     insertNodeAtHead(&myList,data);
+                    break;
+
+            case 3 :
+                    printf("\nEnter Node data: ");
+                    scanf("%d", &data);
+                    insertNodeAtTail(&myList,data);
                     break;
             default :
                     printf("Please enter a valid option!");
