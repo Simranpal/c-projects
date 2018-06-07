@@ -32,6 +32,7 @@ struct node* insert(node *root, int value ) {
 		root->rightChild = insert(root->rightChild, value);
 		printf("root->rightChild = %d", root->rightChild->data); 
 	}
+	return root;
 }
 
 
